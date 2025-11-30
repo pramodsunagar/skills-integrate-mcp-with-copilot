@@ -44,10 +44,39 @@ Appendix: Evidence and commands used
 - Checked `HoPGoldy/student-club-management-system` for `LICENSE` — not present.
 - Read upstream `package.json` to list dependencies.
 
-If you’d like, I can:
-- Run an automated license scan of the upstream repo dependencies and append a package->license table to this file.
-- Draft a short permission email/template to send to the upstream owner.
-- Create an issue/PR in the upstream repo requesting the author add a license (if you want me to open it, confirm and I will do so).
+Automated dependency license scan (npm)
+---------------------------------------
+I ran `npm view <package> license` for the dependencies listed in the upstream `package.json`. Results:
 
+| Package | License |
+|--------:|:--------|
+| axios | MIT |
+| css-loader | MIT |
+| echarts | Apache-2.0 |
+| element-ui | MIT |
+| pug | MIT |
+| pug-plain-loader | MIT |
+| style-loader | MIT |
+| stylus | MIT |
+| stylus-loader | MIT |
+| v-charts | MIT |
+| vue | MIT |
+| vue-router | MIT |
+
+Notes:
+- Most of the upstream dependencies are permissively licensed (MIT or Apache-2.0). That mitigates redistribution risk for those packages themselves, but it does not change the fact that the upstream project's own source code has no license declared.
+- Even with permissive dependency licenses, you must still obtain permission (or a license) from the upstream repo owner before copying or redistributing their source files.
+
+Recommended next steps (updated)
+--------------------------------
+1. Contact the upstream repository owner (`HoPGoldy`) and request explicit permission or ask them to add an OSI-approved license (MIT/BSD/Apache). Save correspondence in this repo (e.g., `/docs/license-requests.md`).
+
+2. With the dependency license table above, you can evaluate which third‑party libraries require attribution or have any redistribution constraints; most are MIT/Apache and are permissive, but you should still verify specific versions if you plan to vendor them.
+
+3. Until permission is received, avoid copying non-trivial code from the upstream repo into our codebase. Consider re-implementing needed UI components using permissively-licensed libraries.
+
+If you’d like, I can:
+- Draft a short permission request message you can send to the upstream owner and optionally open an issue in their repo.
+- Create a more formal `/docs/license-check.md` section enumerating license URLs and linked sources for each dependency.
 
 — license bot
