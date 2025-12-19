@@ -5,7 +5,7 @@ A super simple FastAPI application that allows students to view and sign up
 for extracurricular activities at Mergington High School.
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import os
@@ -13,6 +13,10 @@ from pathlib import Path
 
 app = FastAPI(title="Mergington High School API",
               description="API for viewing and signing up for extracurricular activities")
+
+# Import auth router and role helpers
+from src.auth import router as auth_router, require_role
+app.include_router(auth_router, prefix="/auth")
 
 # Mount the static files directory
 current_dir = Path(__file__).parent
@@ -86,6 +90,30 @@ def root():
 @app.get("/activities")
 def get_activities():
     return activities
+
+
+from pydantic import BaseModel
+
+
+class ActivityCreate(BaseModel):
+    name: str
+    description: str
+    schedule: str
+    max_participants: int
+
+
+@app.post("/activities", status_code=status.HTTP_201_CREATED)
+def create_activity(activity: ActivityCreate, _=Depends(require_role(["organizer", "admin"]))):
+    """Create a new activity (protected: organizer/admin)"""
+    if activity.name in activities:
+        raise HTTPException(status_code=409, detail="Activity already exists")
+    activities[activity.name] = {
+        "description": activity.description,
+        "schedule": activity.schedule,
+        "max_participants": activity.max_participants,
+        "participants": []
+    }
+    return {"message": f"Created activity {activity.name}"}
 
 
 @app.post("/activities/{activity_name}/signup")
