@@ -92,14 +92,14 @@ def get_activities():
     return activities
 
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ActivityCreate(BaseModel):
     name: str
     description: str
     schedule: str
-    max_participants: int
+    max_participants: int = Field(gt=0, description="Maximum number of participants must be greater than 0")
 
 
 @app.post("/activities", status_code=status.HTTP_201_CREATED)
