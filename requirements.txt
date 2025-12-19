@@ -2,3 +2,5 @@ fastapi
 uvicorn
 passlib[bcrypt]
 python-jose[cryptography]
+email-validator
+python-multipart
