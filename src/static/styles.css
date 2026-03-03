@@ -65,9 +65,67 @@ section h3 {
   background-color: #f9f9f9;
 }
 
-.activity-card h4 {
+.activity-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.activity-card-header h4 {
   color: #0066cc;
+  margin: 0;
+}
+
+/* Category badges */
+.category-badge {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.category-academic  { background-color: #e3f2fd; color: #1565c0; }
+.category-sports    { background-color: #e8f5e9; color: #2e7d32; }
+.category-arts      { background-color: #fce4ec; color: #ad1457; }
+.category-technology { background-color: #ede7f6; color: #4527a0; }
+.category-other     { background-color: #f5f5f5; color: #555; }
+
+/* Filters toolbar */
+#filters-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+#filters-toolbar input,
+#filters-toolbar select {
+  flex: 1 1 150px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+#filters-toolbar input:focus,
+#filters-toolbar select:focus {
+  outline: none;
+  border-color: #1a237e;
+  box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.15);
+}
+
+.no-results {
+  color: #777;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
 }
 
 .activity-card p {
